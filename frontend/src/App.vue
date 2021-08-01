@@ -13,47 +13,31 @@
           </div>
         </form>
 
-        
+        <img :src="thumbnailUrl"/>
       </div>
     </div>
   </div>
 </template>
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
-<script>
-  import axios from 'axios';
-  export default {
-  name: 'App',
 
+<script>
+import axios from 'axios';
+export default {
+  name: 'App',
   data() { return {
     websiteUrl: '',
     thumbnailUrl: '',
   } },
-
   methods: {
     makeWebsiteThumbnail() {
-      axios.post("https://screenshotapi.net/api/v1/screenshot", {
-        token: "GoJackets",
+      axios.post("http://localhost:3000/api/thumbnail", {
         url: this.websiteUrl,
-        width: 1920,
-        height: 1080,
-        output: 'json',
-        thumbnail_width: 300
       })
-      .then((response) => {
-      this.thumbnailUrl = response.data.screenshot;
-      })
-      .catch((error) => {
-        window.alert(`The API returned an error: ${error}`);
-      })
+              .then((response) => {
+                this.thumbnailUrl = response.data.screenshot;
+              })
+              .catch((error) => {
+                window.alert(`The API returned an error: ${error}`);
+              })
     }
   }
 }
