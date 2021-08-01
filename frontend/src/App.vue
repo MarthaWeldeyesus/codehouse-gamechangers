@@ -13,31 +13,42 @@
           </div>
         </form>
 
-        <img :src="thumbnailUrl"/>
+         <img :src="thumbnailUrl"/>
       </div>
     </div>
   </div>
 </template>
-
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
 <script>
-import axios from 'axios';
-export default {
+  import axios from 'axios';
+  export default {
   name: 'App',
+
   data() { return {
     websiteUrl: '',
     thumbnailUrl: '',
   } },
+
   methods: {
     makeWebsiteThumbnail() {
       axios.post("http://localhost:3000/api/thumbnail", {
         url: this.websiteUrl,
       })
-              .then((response) => {
-                this.thumbnailUrl = response.data.screenshot;
-              })
-              .catch((error) => {
-                window.alert(`The API returned an error: ${error}`);
-              })
+      .then((response) => {
+      this.thumbnailUrl = response.data.screenshot;
+      })
+      .catch((error) => {
+        window.alert(`The API returned an error: ${error}`);
+      })
     }
   }
 }
